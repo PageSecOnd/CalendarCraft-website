@@ -1,0 +1,411 @@
+/* 语言切换器 */
+.language-switcher {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: var(--z-fixed);
+    display: flex;
+    align-items: center;
+}
+
+.lang-toggle-container {
+    display: flex;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 0.5rem;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(10px);
+    transition: var(--transition-normal);
+}
+
+.lang-toggle-container:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.lang-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: var(--transition-normal);
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    user-select: none;
+}
+
+.lang-text.active {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.lang-cube {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    margin: 0 0.5rem;
+    perspective: 100px;
+    cursor: pointer;
+}
+
+.cube {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.lang-cube.zh .cube {
+    transform: rotateY(0deg);
+}
+
+.lang-cube.en .cube {
+    transform: rotateY(180deg);
+}
+
+.cube-face {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+}
+
+.cube-face.front {
+    transform: translateZ(16px);
+}
+
+.cube-face.back {
+    transform: rotateY(180deg) translateZ(16px);
+}
+
+.cube-face.right {
+    transform: rotateY(90deg) translateZ(16px);
+}
+
+.cube-face.left {
+    transform: rotateY(-90deg) translateZ(16px);
+}
+
+.cube-face.top {
+    transform: rotateX(90deg) translateZ(16px);
+}
+
+.cube-face.bottom {
+    transform: rotateX(-90deg) translateZ(16px);
+}
+
+/* 导航栏 */
+.app-navigation {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-primary);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    transition: var(--transition-normal);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.nav-brand:hover {
+    transform: translateY(-1px);
+}
+
+.brand-icon {
+    color: var(--primary-color);
+    transition: var(--transition-normal);
+}
+
+.nav-brand:hover .brand-icon {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.brand-text {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    position: relative;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width var(--transition-normal);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link.external svg {
+    opacity: 0.6;
+    transition: var(--transition-normal);
+}
+
+.nav-link.external:hover svg {
+    opacity: 1;
+    transform: translateX(2px);
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-normal);
+    cursor: pointer;
+}
+
+.user-info:hover {
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.user-avatar {
+    font-size: 1.1rem;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* 状态栏 */
+.status-bar {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-primary);
+    padding: 0.75rem 0;
+    position: sticky;
+    bottom: 0;
+    z-index: var(--z-sticky);
+}
+
+.status-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 2rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.status-icon {
+    font-size: 1rem;
+}
+
+.status-divider {
+    width: 1px;
+    height: 1rem;
+    background: var(--border-secondary);
+}
+
+/* 快捷键面板 */
+.shortcuts-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    z-index: var(--z-modal);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-normal);
+    backdrop-filter: blur(20px);
+    min-width: 300px;
+}
+
+.shortcuts-panel.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.shortcuts-content h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: var(--font-display);
+}
+
+.shortcuts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.shortcut-item kbd {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    min-width: 1.5rem;
+    text-align: center;
+    border: 1px solid var(--border-secondary);
+}
+
+.shortcut-item span {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .language-switcher {
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .nav-container {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        padding-top: 0.5rem;
+        border-top: 1px solid var(--border-primary);
+    }
+    
+    .nav-user {
+        order: 2;
+    }
+    
+    .status-container {
+        padding: 0 1rem;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .status-item {
+        font-size: 0.8rem;
+    }
+    
+    .shortcuts-panel {
+        margin: 1rem;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 2rem);
+        min-width: unset;
+    }
+}
+
+@media (max-width: 480px) {
+    .lang-toggle-container {
+        padding: 0.25rem;
+    }
+    
+    .lang-text {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .lang-cube {
+        width: 24px;
+        height: 24px;
+        margin: 0 0.25rem;
+    }
+    
+    .cube-face {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
+    
+    .brand-text {
+        font-size: 1.1rem;
+    }
+    
+    .nav-links {
+        gap: 0.75rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+    }
+}

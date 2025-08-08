@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日历工艺 · CalendarCraft</title>
+    <meta name="description" content="智能日历生成工具，融合传统节气与现代科技">
+    <meta name="keywords" content="日历,节气,传统文化,智能生成,CalendarCraft">
+    <meta name="author" content="PageSecOnd">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="assets/css/main.css" as="style">
+    <link rel="preload" href="assets/js/app.js" as="script">
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;700&family=Playfair+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="alternate icon" href="assets/images/favicon.ico">
+</head>
+<body class="loading">
+    <!-- 页面加载器 -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-container">
+            <div class="loader-calendar">
+                <div class="loader-grid">
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell active"></div>
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell"></div>
+                    <div class="loader-cell"></div>
+                </div>
+            </div>
+            <div class="loader-text">
+                <span data-zh="正在加载日历工艺..." data-en="Loading CalendarCraft...">正在加载日历工艺...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页面过渡层 -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-overlay"></div>
+        <div class="transition-content">
+            <div class="transition-loader">
+                <div class="transition-calendar">
+                    <div class="transition-grid">
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell active"></div>
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell"></div>
+                        <div class="transition-cell"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局语言切换器 -->
+    <div class="language-switcher" id="languageSwitcher">
+        <div class="lang-toggle-container">
+            <span class="lang-text left active" data-lang="zh">中文</span>
+            
+            <div class="lang-cube zh" id="langCube">
+                <div class="cube">
+                    <div class="cube-face front">
+                        <span class="arrow-symbol">→</span>
+                    </div>
+                    <div class="cube-face back">
+                        <span class="arrow-symbol">←</span>
+                    </div>
+                    <div class="cube-face right">
+                        <span class="arrow-symbol">↑</span>
+                    </div>
+                    <div class="cube-face left">
+                        <span class="arrow-symbol">↓</span>
+                    </div>
+                    <div class="cube-face top">
+                        <span class="arrow-symbol">↗</span>
+                    </div>
+                    <div class="cube-face bottom">
+                        <span class="arrow-symbol">↙</span>
+                    </div>
+                </div>
+            </div>
+            
+            <span class="lang-text right inactive" data-lang="en">EN</span>
+        </div>
+    </div>
+
+    <!-- 主应用容器 -->
+    <div class="app-container" id="appContainer">
+        <!-- 全局导航栏 -->
+        <nav class="app-navigation" id="appNavigation">
+            <div class="nav-container">
+                <div class="nav-brand" data-route="home">
+                    <svg class="brand-icon" width="32" height="32" viewBox="0 0 32 32">
+                        <rect x="2" y="2" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" rx="3"/>
+                        <line x1="8" y1="2" x2="8" y2="30" stroke="currentColor" stroke-width="0.8"/>
+                        <line x1="16" y1="2" x2="16" y2="30" stroke="currentColor" stroke-width="0.8"/>
+                        <line x1="24" y1="2" x2="24" y2="30" stroke="currentColor" stroke-width="0.8"/>
+                        <line x1="2" y1="8" x2="30" y2="8" stroke="currentColor" stroke-width="0.8"/>
+                        <line x1="2" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="0.8"/>
+                        <line x1="2" y1="24" x2="30" y2="24" stroke="currentColor" stroke-width="0.8"/>
+                        <line x1="14" y1="5" x2="26" y2="17" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+                        <circle cx="5" cy="5" r="1.5" fill="currentColor" opacity="0.7"/>
+                        <circle cx="27" cy="27" r="1.5" fill="currentColor" opacity="0.7"/>
+                    </svg>
+                    <span class="brand-text">CalendarCraft</span>
+                </div>
+
+                <div class="nav-links">
+                    <a href="#" class="nav-link" data-route="home" data-zh="首页" data-en="Home">首页</a>
+                    <a href="#" class="nav-link" data-route="calendar" data-zh="日历" data-en="Calendar">日历</a>
+                    <a href="#" class="nav-link" data-route="features" data-zh="功能" data-en="Features">功能</a>
+                    <a href="#" class="nav-link" data-route="about" data-zh="关于" data-en="About">关于</a>
+                    <a href="https://github.com/PageSecOnd/CalendarCraft" class="nav-link external" target="_blank">
+                        <span>GitHub</span>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                            <path d="M10.5 1L13 3.5L10.5 6M13 3.5H1"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="nav-user">
+                    <div class="user-info">
+                        <span class="user-avatar">👤</span>
+                        <span class="user-name">PageSecOnd</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 页面内容区域 -->
+        <main class="page-container" id="pageContainer">
+            <!-- 页面内容将在这里动态加载 -->
+        </main>
+
+        <!-- 全局状态栏 -->
+        <div class="status-bar" id="statusBar">
+            <div class="status-container">
+                <div class="status-item">
+                    <span class="status-icon">⏰</span>
+                    <span class="status-text" id="currentTime">2025-08-08 11:16:01</span>
+                </div>
+                <div class="status-divider"></div>
+                <div class="status-item">
+                    <span class="status-icon">📅</span>
+                    <span class="status-text" data-zh="今日: 8月8日" data-en="Today: Aug 8">今日: 8月8日</span>
+                </div>
+                <div class="status-divider"></div>
+                <div class="status-item">
+                    <span class="status-icon">🌿</span>
+                    <span class="status-text" data-zh="立秋" data-en="Beginning of Autumn">立秋</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷键面板 -->
+    <div class="shortcuts-panel" id="shortcutsPanel">
+        <div class="shortcuts-content">
+            <h3 data-zh="快捷键" data-en="Shortcuts">快捷键</h3>
+            <div class="shortcuts-list">
+                <div class="shortcut-item">
+                    <kbd>H</kbd>
+                    <span data-zh="返回首页" data-en="Go Home">返回首页</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>C</kbd>
+                    <span data-zh="打开日历" data-en="Open Calendar">打开日历</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>F</kbd>
+                    <span data-zh="查看功能" data-en="View Features">查看功能</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>L</kbd>
+                    <span data-zh="切换语言" data-en="Toggle Language">切换语言</span>
+                </div>
+                <div class="shortcut-item">
+                    <kbd>?</kbd>
+                    <span data-zh="显示帮助" data-en="Show Help">显示帮助</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 模块 -->
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
